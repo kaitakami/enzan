@@ -2,7 +2,8 @@
   "overrides": [
     {
       "extends": [
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:@tailwindcss/recommended"
       ],
       "files": ["*.ts", "*.tsx"],
       "parserOptions": {
@@ -14,9 +15,14 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "tailwindcss"],
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "warn"
+  },
+  "settings": {
+    "tailwindcss": {
+      "callees": ["cn"]
+    }
   }
 }
