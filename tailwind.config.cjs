@@ -39,7 +39,7 @@ module.exports = {
           800: "#222222",
           900: "#181818",
         },
-        emerald: {
+        primary: {
           DEFAULT: "#34d399",
           50: "#ecfdf5",
           100: "#d1fae5",
