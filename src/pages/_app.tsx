@@ -28,7 +28,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <SessionProvider session={session}>
         <ThemeProvider>
           <div
-            className={`${inter.variable} font-sans selection:bg-fuchsia-400 selection:text-white min-h-screen relative bg-background text-foreground dark:bg-foreground dark:text-background`}
+            className={`${inter.variable} font-sans selection:bg-fuchsia-400 selection:text-white min-h-screen relative bg-[#fafafa] dark:bg-slate-800`}
           >
             <Component {...pageProps} />
             <Toaster />
