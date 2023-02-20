@@ -4,8 +4,35 @@ CREATE TABLE "Project" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "name" VARCHAR(240) NOT NULL,
+    "slug" VARCHAR(240) NOT NULL,
+    "repositoryUrl" VARCHAR(240),
+    "upvotes" INTEGER NOT NULL DEFAULT 0,
+    "public" BOOLEAN NOT NULL DEFAULT true,
+    "finished" BOOLEAN NOT NULL DEFAULT false,
+    "description" TEXT NOT NULL,
+    "duration" INTEGER NOT NULL DEFAULT 0,
+    "tags" TEXT[],
 
     CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Update" (
+    "id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "title" VARCHAR(240) NOT NULL,
+    "content" TEXT NOT NULL,
+    "projectId" TEXT NOT NULL,
+
+    CONSTRAINT "Update_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Language" (
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Language_pkey" PRIMARY KEY ("name")
 );
 
 -- CreateTable
@@ -56,6 +83,18 @@ CREATE TABLE "VerificationToken" (
     "expires" TIMESTAMP(3) NOT NULL
 );
 
+-- CreateTable
+CREATE TABLE "_ProjectToUser" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "_LanguageToProject" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Project_name_key" ON "Project"("name");
 
@@ -74,8 +113,35 @@ CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token"
 -- CreateIndex
 CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationToken"("identifier", "token");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "_ProjectToUser_AB_unique" ON "_ProjectToUser"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_ProjectToUser_B_index" ON "_ProjectToUser"("B");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_LanguageToProject_AB_unique" ON "_LanguageToProject"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_LanguageToProject_B_index" ON "_LanguageToProject"("B");
+
+-- AddForeignKey
+ALTER TABLE "Update" ADD CONSTRAINT "Update_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ProjectToUser" ADD CONSTRAINT "_ProjectToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Project"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ProjectToUser" ADD CONSTRAINT "_ProjectToUser_B_fkey" FOREIGN KEY ("B") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_LanguageToProject" ADD CONSTRAINT "_LanguageToProject_A_fkey" FOREIGN KEY ("A") REFERENCES "Language"("name") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_LanguageToProject" ADD CONSTRAINT "_LanguageToProject_B_fkey" FOREIGN KEY ("B") REFERENCES "Project"("id") ON DELETE CASCADE ON UPDATE CASCADE;

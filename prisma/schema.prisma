@@ -9,10 +9,36 @@ datasource db {
 }
 
 model Project {
+    id            String     @id @default(cuid())
+    createdAt     DateTime   @default(now())
+    updatedAt     DateTime   @updatedAt
+    name          String     @unique @db.VarChar(240)
+    slug          String     @db.VarChar(240)
+    repositoryUrl String?    @db.VarChar(240)
+    upvotes       Int        @default(0)
+    public        Boolean    @default(true)
+    finished      Boolean    @default(false)
+    description   String     @db.Text
+    duration      Int        @default(0)
+    tags          String[]
+    languages     Language[]
+    members       User[]
+    updates       Update[]
+}
+
+model Update {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    name      String   @unique @db.VarChar(240)
+    title     String   @db.VarChar(240)
+    content   String   @db.Text
+    project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+    projectId String
+}
+
+model Language {
+    name     String    @id
+    projects Project[]
 }
 
 // Necessary for Next auth
@@ -50,6 +76,7 @@ model User {
     emailVerified DateTime?
     image         String?
     points        Int       @default(0)
+    projects      Project[]
     accounts      Account[]
     sessions      Session[]
 }
