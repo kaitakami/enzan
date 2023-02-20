@@ -24,11 +24,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 				:root {
 					--font-inter: ${inter.style.fontFamily};
 				}
-			}`}</style>
+			`}</style>
       <SessionProvider session={session}>
         <ThemeProvider>
           <div
-            className={`${inter.variable} font-sans selection:bg-fuchsia-400 selection:text-white min-h-screen relative bg-[#fafafa] dark:bg-slate-800`}
+            className={`${inter.variable} font-sans selection:bg-fuchsia-400 selection:text-white min-h-screen relative `}
           >
             <Component {...pageProps} />
             <Toaster />
