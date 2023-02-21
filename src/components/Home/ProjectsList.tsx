@@ -37,7 +37,7 @@ const ProjectsList = () => {
   return (
     <>
       <section className="max-w-5xl m-auto px-3 md:px-0 space-y-5">
-        <h2 className="mt-10 scroll-m-20 border-b border-b-slate-200 pb-2 text-5xl font-semibold tracking-tight transition-colors first:mt-0 dark:border-b-slate-700">Proyectos públicos</h2>
+        <h2 className="mt-10 scroll-m-20 border-b border-b-slate-200 pb-2 text-4xl font-semibold tracking-tight transition-colors first:mt-0 dark:border-b-slate-700">Proyectos públicos</h2>
         <form onSubmit={handleSubmit} className="flex gap-5 md:flex-nowrap flex-wrap">
           <Select value={formState.language} onValueChange={(e) => handleFormChange(e, "language")}>
             <SelectTrigger className="w-full">
