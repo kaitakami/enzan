@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react";
-import { AnimatePresence, motion, useCycle, useScroll } from "framer-motion";
+import { AnimatePresence, motion, useCycle } from "framer-motion";
 import { SidebarOpen, SidebarClose } from "lucide-react";
 import ThemeChanger from "@/components/layout/ThemeChanger";
 
@@ -36,28 +35,7 @@ function getWindowDimensions() {
 }
 
 const Sidebar = () => {
-  const { scrollY } = useScroll();
-  /** this hook manages state **/
-  const [hidden, setHidden] = useState(false);
-
   const { width } = getWindowDimensions();
-
-  /** this onUpdate function will be called in the `scrollY.onChange` callback **/
-  function update() {
-    if (scrollY?.get() <= scrollY?.getPrevious() + 1) {
-      setHidden(false);
-    } else if (scrollY?.get() >= 100 && scrollY?.get() >= scrollY?.getPrevious()) {
-      setHidden(true);
-      if (open) {
-        cycleOpen()
-      }
-    }
-  }
-
-  /** update the onChange callback to call for `update()` **/
-  useEffect(() => {
-    return scrollY.onChange(() => update());
-  });
 
   /** add this const **/
   const variants = {
@@ -82,7 +60,6 @@ const Sidebar = () => {
         variants={variants}
         viewport={{ once: true }}
         /** it's right here that we match our boolean state with these variant keys **/
-        animate={hidden ? "hidden" : "visible"}
         /** I'm also going to add a custom easing curve and duration for the animation **/
         transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
         /** basic nav styles **/
