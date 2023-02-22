@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout"
+import Layout from "@/components/layout/app/Layout"
 import Link from "next/link"
 import kaiImage from "../../public/kaiTakami.jpg"
 import Image from "next/image"
@@ -14,7 +14,7 @@ const about = () => {
               <p className="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400"></p>
             </div>
             <div className="flex gap-8 mb-6 lg:mb-16 justify-center">
-              <div className="items-center bg-gray-50 rounded-lg sm:flex dark:bg-gray-800 dark:border-gray-700 shadow-2xl ">
+              <div className="items-center bg-gray-50 rounded-lg sm:flex dark:bg-gray-800 dark:border-gray-700 shadow-2xl sm:pr-12">
                 <Link href="https://www.kaitakami.dev">
                   <Image className="w-full rounded-lg sm:rounded-none sm:rounded-l-lg hover:opacity-90 transition-opacity" width={300} height={300} src={kaiImage} alt="Kai Takami Image" priority />
                 </Link>

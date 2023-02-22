@@ -1,6 +1,6 @@
-import Navbar from './layout/navbar'
-import Footer from './layout/footer'
-import HeadLayout from './Dashboard/layout/HeadLayout';
+import Navbar from './navbar'
+import Footer from './footer'
+import HeadLayout from '../HeadLayout';
 
 const Layout: React.FC<{ children: JSX.Element, title?: string, description?: string }> = ({
   children,
@@ -9,7 +9,7 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
 }) => {
   return (
     <>
-      <HeadLayout title={title} description={description} />
+    <HeadLayout title={title} description={description} />
       <Navbar />
       <div className='min-h-screen pt-16'>
         {children}

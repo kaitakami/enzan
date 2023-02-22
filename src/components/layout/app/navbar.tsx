@@ -1,10 +1,10 @@
 import Link from "next/link"
-import { buttonVariants } from "../ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { siteConfig } from "@/config/siteConfig"
 import { Github } from "lucide-react"
 import { Twitter } from "lucide-react"
 import { MainNav } from "./mainNav"
-import ThemeChanger from "./ThemeChanger"
+import ThemeChanger from "@/components/layout/ThemeChanger"
 
 const Navbar = () => {
   return (

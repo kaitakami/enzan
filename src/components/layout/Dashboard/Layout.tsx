@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-import HeadLayout from './layout/HeadLayout'
+import HeadLayout from '../HeadLayout'
 
 const Layout: React.FC<{ children: JSX.Element, title?: string, description?: string }> = ({
   children,
@@ -23,6 +23,7 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
   return (
     <>
       {/* Loading animation */}
+      <HeadLayout />
       <div className="flex items-center justify-center h-screen">
         <svg className='w-20 h-20 animate-pulse' viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="160" height="160" rx="6" fill="#1E293B" />

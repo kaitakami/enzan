@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { buttonVariants } from "@/components/ui/button";
-import Layout from '../components/Layout';
+import Layout from '../components/layout/app/Layout';
 import { siteConfig } from '../config/siteConfig';
 import { Github } from "lucide-react";
 import { useToast } from "@/hooks/use-toast"
@@ -10,6 +10,7 @@ import ProjectsList from "@/components/Home/ProjectsList";
 import FAQ from "@/components/Home/FAQ";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useRouter } from "next/router";
+import HeadLayout from "@/components/layout/HeadLayout";
 
 
 const Home: NextPage = () => {
@@ -81,6 +82,7 @@ const Home: NextPage = () => {
   }
   return (
     <>
+      <HeadLayout />
       <div className="flex items-center justify-center h-screen" >
         <svg className='w-20 h-20 animate-pulse' viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="160" height="160" rx="6" fill="#1E293B" />
