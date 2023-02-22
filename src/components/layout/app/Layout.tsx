@@ -1,6 +1,6 @@
 import Navbar from './navbar'
 import Footer from './footer'
-import HeadLayout from '../HeadLayout';
+import HeadLayout from '../Head';
 
 const Layout: React.FC<{ children: JSX.Element, title?: string, description?: string }> = ({
   children,

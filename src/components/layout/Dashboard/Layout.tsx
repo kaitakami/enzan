@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-import HeadLayout from '../HeadLayout'
+import HeadLayout from '../Head'
 import { useToast } from '@/hooks/use-toast'
 
 const Layout: React.FC<{ children: JSX.Element, title?: string, description?: string }> = ({

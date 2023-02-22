@@ -29,7 +29,7 @@ const HeadLayout = (
         <meta property="og:title" content="Enzan - Crea junto a otros developers" />
         <meta property="og:description" content="Juntamos a personas que quieren crear tech.
 Colabora con otros developers y crea tu portfolio ideal o tu siguente gran proyecto." />
-        <meta property="og:image" content="https://ibb.co/L5J8L2c" />
+        <meta property="og:image" content="https://i.ibb.co/VmQt7Pz/Frame-346.png" />
 
         {/* <!-- Twitter --> */}
         <meta property="twitter:card" content="summary_large_image" />
@@ -37,7 +37,7 @@ Colabora con otros developers y crea tu portfolio ideal o tu siguente gran proye
         <meta property="twitter:title" content="Enzan - Crea junto a otros developers" />
         <meta property="twitter:description" content="Juntamos a personas que quieren crear tech.
 Colabora con otros developers y crea tu portfolio ideal o tu siguente gran proyecto." />
-        <meta property="twitter:image" content="https://ibb.co/L5J8L2c" />
+        <meta property="twitter:image" content="https://i.ibb.co/VmQt7Pz/Frame-346.png" />
       </Head>
       {/* Umami */}
       <Script async defer data-website-id="3b1eed1e-0265-4b9b-9594-db63aa78cd5d" src="https://umami.kaitakami.dev/umami.js" />
