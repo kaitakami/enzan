@@ -41,7 +41,7 @@ const Home: NextPage = () => {
                   <Link href="/about" className={buttonVariants({
                     size: "lg",
                     variant: "colored",
-                    className: "py-6 umami--click--about-hero-section"
+                    className: "py-6 max-w-sm sm:max-w-none w-full mx-auto sm:m-0 sm:w-auto umami--click--about-hero-section"
                   })}>
                     Sobre
                     <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"></path></svg>
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
                     className={buttonVariants({
                       size: "lg",
                       variant: "outline",
-                      className: "bg-white dark:bg-inherit py-6 space-x-2 umami--click--register-github-hero-section"
+                      className: "bg-white dark:bg-inherit py-6 space-x-2 max-w-sm sm:max-w-none w-full mx-auto sm:m-0 sm:w-auto umami--click--register-github-hero-section"
                     })}
                     onClick={() => {
                       toast({
