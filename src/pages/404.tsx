@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Layout from '@/components/Layout'
+import Layout from '@/components/layout/app/Layout'
 const NotFoundPage = () => {
   return (
     <Layout title='Error 404 :('>
