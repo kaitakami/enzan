@@ -15,7 +15,7 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
     return (
       <>
         <HeadLayout title={title} description={description} />
-        <div className='min-h-screen pt-16'>
+        <div className='min-h-screen'>
           {children}
         </div>
       </>)
