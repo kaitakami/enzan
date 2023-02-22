@@ -27,9 +27,6 @@ const Footer = () => {
             <Link href="/about" className="mr-4 hover:underline md:mr-6">Sobre</Link>
           </li>
           <li>
-            <Link href="#" className="mr-4 hover:underline md:mr-6">Inicia sesión</Link>
-          </li>
-          <li>
             <Link href={siteConfig.links.blog} className="mr-4 hover:underline md:mr-6">Blog</Link>
           </li>
           <li>
