@@ -19,7 +19,7 @@ const ProjectsList = () => {
     duration: "any",
     search: "",
   })
-  const { data: languages, isLoading } = api.language["get-all"].useQuery()
+  const { data: languages } = api.language["get-all"].useQuery()
 
   const handleFormChange = (e: string, name: string) => {
     setFormState({ ...formState, [name]: e })

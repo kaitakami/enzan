@@ -1,7 +1,7 @@
 import * as React from "react"
 import Link from "next/link"
 
-import { NavItem } from "@/types/nav"
+import type { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/siteConfig"
 import { cn } from "@/utils/cn"
 import { Button } from "@/components/ui/button"

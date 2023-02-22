@@ -1,12 +1,14 @@
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import HeadLayout from '../HeadLayout'
+import { useToast } from '@/hooks/use-toast'
 
 const Layout: React.FC<{ children: JSX.Element, title?: string, description?: string }> = ({
   children,
   title,
   description
 }) => {
+  const { toast } = useToast()
   const session = useSession()
   const router = useRouter()
   if (session.status === 'authenticated') {
@@ -18,7 +20,11 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
         </div>
       </>)
   } else if (session.status === 'unauthenticated') {
-    router.push('/')
+    router.push('/').catch(() => toast({
+      variant: "destructive",
+      title: 'Error',
+      description: 'Tienes que estar logueado para acceder a esta página'
+    }))
   }
   return (
     <>

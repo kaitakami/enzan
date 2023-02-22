@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { buttonVariants } from "@/components/ui/button";
 import Layout from '../components/layout/app/Layout';
 import { siteConfig } from '../config/siteConfig';
@@ -18,7 +18,12 @@ const Home: NextPage = () => {
   const session = useSession()
   const router = useRouter()
   if (session.status === 'authenticated') {
-    router.push('/dashboard')
+    router.push('/dashboard').catch(() => toast({
+      variant: "destructive",
+      title: "Uh oh!",
+      description: "No pudimos redirigirte a tu dashboard :(",
+      action: <ToastAction altText="Reintentar">Reintentar</ToastAction>
+    }))
   } else if (session.status === 'unauthenticated') {
     return (
       <Layout>
@@ -47,23 +52,22 @@ const Home: NextPage = () => {
                       variant: "outline",
                       className: "bg-white dark:bg-inherit py-6 space-x-2"
                     })}
-                    onClick={async () => {
-                      try {
-                        toast({
-                          title: "Cargando...",
-                          description: "Estamos conectando tu cuenta de GitHub",
-                        })
-                        await signIn("github")
-                      }
-                      catch {
+                    onClick={() => {
+                      toast({
+                        title: "Cargando...",
+                        description: "Estamos conectando tu cuenta de GitHub",
+                      })
+
+                      signIn('github').catch(() => {
                         toast({
                           variant: "destructive",
                           title: "Uh oh!",
                           description: "Hubo un error :(",
                           action: <ToastAction altText="Reintentar">Reintentar</ToastAction>
                         })
-                      }
-                    }}
+                      })
+                    }
+                    }
                   >
                     <Github />
                     <span>Registra tu cuenta</span>
