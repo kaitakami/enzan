@@ -1,19 +1,57 @@
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion, useCycle, useScroll } from "framer-motion";
+import { signIn, useSession } from "next-auth/react"
 import { siteConfig } from "@/config/siteConfig"
 import { MainNav } from "./mainNav"
 import ThemeChanger from "@/components/layout/ThemeChanger"
-import { signIn, useSession } from "next-auth/react"
+import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
 
 const Navbar = () => {
   const session = useSession()
+
+  // ANIMATED NAVBAR
+  const { scrollY } = useScroll();
+  /** this hook manages state **/
+  const [hidden, setHidden] = useState(false);
+
+  /** this onUpdate function will be called in the `scrollY.onChange` callback **/
+  function update() {
+    if (scrollY?.get() <= scrollY?.getPrevious() + 1) {
+      setHidden(false);
+    } else if (scrollY?.get() >= 100 && scrollY?.get() >= scrollY?.getPrevious()) {
+      setHidden(true);
+    }
+  }
+
+  /** update the onChange callback to call for `update()` **/
+  useEffect(() => {
+    return scrollY.onChange(() => update());
+  });
+
+  /** add this const **/
+  const variants = {
+    /** this is the "visible" key and it's correlating styles **/
+    visible: { opacity: 1, y: 0 },
+    /** this is the "hidden" key and it's correlating styles **/
+    hidden: { opacity: 0, y: -25 }
+  };
+
   return (
-    <header className="w-full top-0 z-40 absolute border-b border-b-slate-200 bg-white dark:border-b-slate-700 dark:bg-slate-900">
+    <motion.nav
+      variants={variants}
+      viewport={{ once: true }}
+      /** it's right here that we match our boolean state with these variant keys **/
+      animate={hidden ? "hidden" : "visible"}
+      /** I'm also going to add a custom easing curve and duration for the animation **/
+      transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
+      /** basic nav styles **/
+      className="flex fixed left-0 w-full z-30 border-b border-b-slate-200 bg-white dark:border-b-slate-700 dark:bg-slate-900">
       <div className="container flex h-16 items-center m-auto px-3">
         <MainNav items={siteConfig.mainNav} />
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <nav className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1">
             {session.status === "unauthenticated" ? <Button
               size={"sm"}
               variant={"outline"}
@@ -30,10 +68,10 @@ const Navbar = () => {
               </Link>
             )}
             <ThemeChanger />
-          </nav>
+          </div>
         </div>
       </div>
-    </header >
+    </motion.nav>
   )
 }
 
