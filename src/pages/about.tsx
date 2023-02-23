@@ -5,10 +5,19 @@ import Image from "next/image"
 
 const about = () => {
   return (
-    <Layout>
+    <Layout title="Sobre">
       <>
+        <section className="max-w-6xl m-auto">
+          <div className="px-4 py-8 lg:py-16">
+            <div className="mr-auto place-self-center lg:col-span-7">
+              <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Enzan es la plataforma para colaborar con otros developers</h1>
+              <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Crea y únete a proyectos, construye tu portafolio, expande tus contactos y aprende nuevas tecnologías.</p>
+            </div>
+          </div>
+        </section>
+
         <section>
-          <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
+          <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
               <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Nosotros</h2>
               <p className="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400"></p>
