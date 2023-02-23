@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-import HeadLayout from '../Head'
 import { useToast } from '@/hooks/use-toast'
+import HeadLayout from '../Head'
+import Sidebar from './Sidebar'
 
 const Layout: React.FC<{ children: JSX.Element, title?: string, description?: string }> = ({
   children,
@@ -15,7 +16,8 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
     return (
       <>
         <HeadLayout title={title} description={description} />
-        <div className='min-h-screen'>
+        <div className='min-h-screen flex'>
+          <Sidebar />
           {children}
         </div>
       </>)
