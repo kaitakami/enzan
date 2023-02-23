@@ -9,21 +9,35 @@ datasource db {
 }
 
 model Project {
-    id            String     @id @default(cuid())
-    createdAt     DateTime   @default(now())
-    updatedAt     DateTime   @updatedAt
-    name          String     @unique @db.VarChar(240)
-    slug          String     @db.VarChar(240)
-    repositoryUrl String?    @db.VarChar(240)
-    upvotes       Int        @default(0)
-    public        Boolean    @default(true)
-    finished      Boolean    @default(false)
-    description   String     @db.Text
-    duration      Int        @default(0)
+    id            String      @id @default(cuid())
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
+    name          String      @unique @db.VarChar(240)
+    slug          String      @unique @db.VarChar(240)
+    repositoryUrl String?     @db.VarChar(240)
+    upvotes       Int         @default(0)
+    public        Boolean     @default(true)
+    finished      Boolean     @default(false)
+    description   String      @db.Text
+    duration      Int
     tags          String[]
     languages     Language[]
-    members       User[]
+    leader        User        @relation(fields: [leaderId], references: [id])
+    members       User[]      @relation(name: "ProjectMembers")
+    leaderId      String
+    admissions    Admission[]
     updates       Update[]
+}
+
+model Admission {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    content   String   @db.VarChar(600)
+    project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+    projectId String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
 }
 
 model Update {
@@ -70,15 +84,17 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String      @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?     @unique
     emailVerified DateTime?
     image         String?
-    points        Int       @default(0)
-    projects      Project[]
+    points        Int         @default(0)
+    projects      Project[]   @relation(name: "ProjectMembers")
     accounts      Account[]
     sessions      Session[]
+    leaderProject Project[]
+    admissions    Admission[]
 }
 
 model VerificationToken {
