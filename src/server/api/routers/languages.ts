@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 
 import { prisma } from "@/server/db";
 
@@ -12,9 +12,5 @@ export const languageRouter = createTRPCRouter({
     } catch (error) {
       return [];
     }
-  }),
-
-  getSecretMessage: protectedProcedure.query(() => {
-    return "This is a protected message! Welcome to enzan :)";
   }),
 });
