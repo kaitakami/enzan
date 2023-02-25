@@ -27,7 +27,6 @@ const Projects = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(formState)
     setFormState({
       language: "any",
       duration: "any",
