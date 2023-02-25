@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import TextEditor from './TextEditor';
 import MdxPreview from './MdxPreview';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import * as LabelPrimitive from '@radix-ui/react-label';
 
 
 const MdxEditor: React.FC = () => {
