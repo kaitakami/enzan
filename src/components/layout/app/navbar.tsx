@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AnimatePresence, motion, useCycle, useScroll } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { signIn, useSession } from "next-auth/react"
 import { siteConfig } from "@/config/siteConfig"
 import { MainNav } from "./mainNav"
@@ -18,7 +18,7 @@ const Navbar = () => {
 
   /** this onUpdate function will be called in the `scrollY.onChange` callback **/
   function update() {
-    if (scrollY?.get() <= scrollY?.getPrevious() + 1) {
+    if (scrollY?.get() <= scrollY?.getPrevious()) {
       setHidden(false);
     } else if (scrollY?.get() >= 100 && scrollY?.get() >= scrollY?.getPrevious()) {
       setHidden(true);
