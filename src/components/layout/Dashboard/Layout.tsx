@@ -22,7 +22,7 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
         </div>
       </>)
   } else if (session.status === 'unauthenticated') {
-    router.push('/').catch(() => toast({
+    router.push('/').finally(() => toast({
       variant: "destructive",
       title: 'Error',
       description: 'Tienes que estar logueado para acceder a esta página'

@@ -6,7 +6,7 @@ import Layout from '../components/layout/app/Layout';
 import { siteConfig } from '../config/siteConfig';
 import { Github } from "lucide-react";
 import { useToast } from "@/hooks/use-toast"
-import ProjectsList from "@/components/Home/ProjectsList";
+import ProjectsSection from "@/components/ProjectFilter/ProjectsSection";
 import FAQ from "@/components/Home/FAQ";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useRouter } from "next/router";
@@ -77,7 +77,7 @@ const Home: NextPage = () => {
             </div>
           </section>
           <main>
-            <ProjectsList />
+            <ProjectsSection />
             <FAQ />
           </main>
         </>

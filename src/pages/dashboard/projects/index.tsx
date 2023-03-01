@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react"
 import Layout from "@/components/layout/app/Layout"
 import DashboardLayout from "@/components/layout/Dashboard/Layout"
-import ProjectsList from "@/components/Projects"
+import ProjectsSection from "@/components/ProjectFilter/ProjectsSection"
 
 const Projects = () => {
   const session = useSession()
@@ -9,12 +9,12 @@ const Projects = () => {
     <div>
       {session.status === "unauthenticated" ?
         <Layout>
-          <ProjectsList />
+          <ProjectsSection />
         </Layout>
         :
         <DashboardLayout>
-          <div className="mx-auto">
-            <ProjectsList />
+          <div className="mx-auto pt-20 px-3">
+            <ProjectsSection />
           </div>
         </DashboardLayout>}
     </div >
