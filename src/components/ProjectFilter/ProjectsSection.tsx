@@ -34,7 +34,7 @@ const ProjectsSection = () => {
   return (
     <>
       <section className="max-w-6xl m-auto px-3 lg:px-0 space-y-5">
-        <h2 className="mt-10 scroll-m-20 border-b border-b-slate-200 pb-2 text-4xl font-semibold tracking-tight transition-csolors first:mt-0 dark:border-b-slate-700">Proyectos públicos</h2>
+        <h2 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Proyectos públicos</h2>
         <form className="flex gap-5 md:flex-nowrap flex-wrap">
           <Select value={filterState.language} onValueChange={(e) => handleFormChange(e, "language")}>
             <SelectTrigger className="w-full">
