@@ -9,7 +9,9 @@ const Projects = () => {
     <div>
       {session.status === "unauthenticated" ?
         <Layout>
-          <ProjectsSection />
+          <div className="pt-16">
+            <ProjectsSection />
+          </div>
         </Layout>
         :
         <DashboardLayout>
