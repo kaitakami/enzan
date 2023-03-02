@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
 import TextEditor from './TextEditor';
 import MdxPreview from './MdxPreview';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 
-const MdxEditor: React.FC = () => {
-  const [value, setValue] = useState('');
-
-  const handleValueChange = (value: string) => {
-    setValue(value);
-  };
-
+const MdxEditor: React.FC<{ state: string, handleState: (e: React.ChangeEvent<HTMLTextAreaElement>) => void }> = ({ state, handleState }) => {
   return (
     <div>
       <Tabs defaultValue="editor" className="dark:bg-slate-800 min-h-[400px] rounded-lg p-2 bg-slate-100 mx-auto">
@@ -19,10 +12,10 @@ const MdxEditor: React.FC = () => {
           <TabsTrigger value="preview">Previa</TabsTrigger>
         </TabsList>
         <TabsContent value="editor" className='h-[400px] overflow-y-auto'>
-          <TextEditor value={value} handleChange={handleValueChange} />
+          <TextEditor value={state} handleChange={handleState} />
         </TabsContent>
         <TabsContent value="preview" className='h-[400px] overflow-y-auto'>
-          <MdxPreview value={value} />
+          <MdxPreview value={state} />
         </TabsContent>
       </Tabs>
     </div>
