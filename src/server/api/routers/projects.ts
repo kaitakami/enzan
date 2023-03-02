@@ -5,18 +5,6 @@ import { cleanDuration } from "@/utils/cleanDuration";
 import type { Prisma } from "@prisma/client";
 
 export const projectRouter = createTRPCRouter({
-  ["get-all"]: publicProcedure.query(async ({ ctx }) => {
-    const projects = await ctx.prisma.project.findMany({
-      include: {
-        languages: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return projects;
-  }),
-
   ["get"]: publicProcedure
     .input(
       z.object({
@@ -28,6 +16,9 @@ export const projectRouter = createTRPCRouter({
         .findUnique({
           where: {
             id: input.id,
+          },
+          include: {
+            languages: true,
           },
         })
         .catch((err) => console.log(err));
@@ -78,5 +69,51 @@ export const projectRouter = createTRPCRouter({
       });
 
       return projects;
+    }),
+  ["create"]: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        slug: z.string(),
+        description: z.string(),
+        duration: z.number(),
+        public: z.boolean(),
+        tags: z.array(z.string()),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const slugExists = await ctx.prisma.project.findUnique({
+        where: {
+          slug: input.slug,
+        },
+      });
+      if (!slugExists) {
+        const user: Prisma.UserUpdateInput = {
+          id: ctx.session.user.id,
+          projects: {
+            create: {
+              name: input.name,
+              slug: input.slug,
+              description: input.description,
+              duration: input.duration,
+              public: input.public,
+              tags: input.tags,
+              leaderId: ctx.session.user.id,
+            },
+          },
+        };
+
+        await ctx.prisma.user.update({
+          where: { id: ctx.session.user.id },
+          data: user,
+        });
+        return {
+          error: null,
+        };
+      } else {
+        return {
+          error: "Intenta cambiando el nombre del proyecto",
+        };
+      }
     }),
 });
