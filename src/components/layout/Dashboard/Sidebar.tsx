@@ -136,7 +136,7 @@ const Sidebar = () => {
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem className="py-0">
-                              <Link href={`/dashboard/projects/${session.data?.user.id || ""}`} className="py-1 flex items-center text-lg gap-2 h-full w-full">
+                              <Link href={`/dashboard/user/projects`} className="py-1 flex items-center text-lg gap-2 h-full w-full">
                                 <Briefcase size={19} />
                                 <span>Gestionar</span>
                               </Link>
