@@ -6,10 +6,12 @@ import { MainNav } from "./mainNav"
 import ThemeChanger from "@/components/layout/ThemeChanger"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useToast } from "@/hooks/use-toast";
 import Link from "next/link"
 
 const Navbar = () => {
   const session = useSession()
+  const { toast } = useToast()
 
   // ANIMATED NAVBAR
   const { scrollY } = useScroll();
@@ -56,7 +58,7 @@ const Navbar = () => {
               size={"sm"}
               variant={"outline"}
               className="text-slate-700 dark:text-slate-400 umami--click--sign-in-navbar"
-              onClick={() => { signIn("github").catch(err => console.log(err)) }}
+              onClick={() => { signIn("github").catch(() => toast({ variant: 'destructive', title: "Error iniciando sesión" })) }}
             >
               <span>Inicia sesión</span>
             </Button> : (
