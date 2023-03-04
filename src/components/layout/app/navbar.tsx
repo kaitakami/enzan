@@ -62,7 +62,7 @@ const Navbar = () => {
             >
               <span>Inicia sesión</span>
             </Button> : (
-              <Link href="/dashboard/profile">
+              <Link href={`/dashboard/user/${session.data?.user.id || ""}`}>
                 <Avatar>
                   {session.data?.user.image && <AvatarImage src={session.data?.user.image} />}
                   <AvatarFallback className="uppercase">{session.data?.user.name?.slice(0, 2)}</AvatarFallback>
