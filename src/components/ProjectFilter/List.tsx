@@ -21,7 +21,7 @@ const List: React.FC<{ filters: FilterState }> = ({ filters }) => {
 
   return (
     <>
-      <section className="max-w-6xl lg:px-0 px-3 m-auto pt-10 w-full">
+      <section className="max-w-6xl lg:px-0 px-3 m-auto py-10 w-full">
         <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3 justify-center py-8 mx-auto w-full">
           {!projects ? (<>
             <Placeholder />
