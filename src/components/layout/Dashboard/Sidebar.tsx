@@ -152,7 +152,7 @@ const Sidebar = () => {
                         </DropdownMenu>
                       </li>
                       <li>
-                        <Link href="/dashboard" className="flex items-center text-lg gap-2">
+                        <Link href={`/dashboard/user/${session.data?.user.id || ""}`} className="flex items-center text-lg gap-2">
                           <User size={19} />
                           <span>Cuenta</span>
                         </Link>
