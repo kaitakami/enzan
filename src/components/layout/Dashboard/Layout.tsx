@@ -30,7 +30,6 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
   }
   return (
     <>
-      {/* Loading animation */}
       <HeadLayout />
       <div className="flex items-center justify-center h-screen">
         <svg className='w-20 h-20 animate-pulse' viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +41,6 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
           <path d="M93.1463 38.8093C93.1463 37.8612 93.8501 37.1573 94.7983 37.1573H102.67C103.618 37.1573 104.322 37.8612 104.322 38.8093V56.0893C104.322 57.0375 103.618 57.7413 102.67 57.7413H94.8992C94.2088 57.7413 93.7371 57.4298 93.4614 57.0134C93.2076 56.63 93.1381 56.1896 93.1463 55.89V38.8093Z" fill="#059669" />
           <path d="M111.482 38.8093C111.482 37.8612 112.186 37.1573 113.134 37.1573H121.006C121.954 37.1573 122.658 37.8612 122.658 38.8093V55.8973C122.658 56.8455 121.954 57.5494 121.006 57.5494H113.134C112.186 57.5494 111.482 56.8455 111.482 55.8973V38.8093Z" fill="#059669" />
         </svg>
-
       </div>
     </>
   )
