@@ -2,11 +2,16 @@ import { useSession } from "next-auth/react"
 import DashboardLayout from '@/components/layout/Dashboard/Layout';
 import Layout from "@/components/layout/app/Layout";
 import type { GetServerSideProps, NextPage } from 'next';
-import type { Project, User, Admission } from "@prisma/client";
+import type { Project, User, Admission, Language } from "@prisma/client";
 import Profile from "@/components/layout/Dashboard/User/Profile";
 
+
+export interface ProjectWithLanguage extends Project {
+  languages: Language[]
+}
+
 export interface UserWithProjectsAndAdmissions extends User {
-  projects: Project[],
+  projects: ProjectWithLanguage[],
   admissions: Admission[]
 }
 
@@ -28,7 +33,7 @@ const UserPage: NextPage<{ userInfo: UserWithProjectsAndAdmissions, userQueryId:
   } else {
     return (
       <Layout>
-        <div className="mx-auto pt-16 w-screen max-w-6xl">
+        <div className="pt-16 flex justify-center">
           <Profile user={userInfo} />
         </div>
       </Layout>
@@ -47,9 +52,21 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     where: {
       id: String(query.userId)
     },
-    include: {
-      projects: true,
-      admissions: true
+    select: {
+      projects: {
+        include: {
+          languages: true,
+        },
+        orderBy: {
+          createdAt: "desc"
+        }
+
+      },
+      admissions: true,
+      name: true,
+      points: true,
+      image: true,
+      id: true,
     },
   })
 
