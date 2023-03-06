@@ -98,7 +98,7 @@ model User {
     sessions      Session[]
     leaderProject Project[]
     admissions    Admission[]
-    Update        Update[]
+    updates       Update[]
 }
 
 model VerificationToken {
