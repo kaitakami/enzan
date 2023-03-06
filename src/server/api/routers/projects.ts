@@ -79,6 +79,7 @@ export const projectRouter = createTRPCRouter({
         duration: z.number(),
         public: z.boolean(),
         tags: z.array(z.string()),
+        languages: z.array(z.string()),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -99,6 +100,9 @@ export const projectRouter = createTRPCRouter({
               public: input.public,
               tags: input.tags,
               leaderId: ctx.session.user.id,
+              languages: {
+                connect: input.languages.map((lang) => ({ name: lang })),
+              },
             },
           },
         };
