@@ -2,6 +2,7 @@ import Link from "next/link"
 import { convertDuration } from '../utils/cleanDuration';
 import type { Project } from "@prisma/client";
 import type { Language } from "@prisma/client";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 interface ProjectWithLanguage extends Project {
   languages: Language[]
@@ -21,7 +22,10 @@ const ProjectCard: React.FC<{ project: ProjectWithLanguage }> = ({ project }) =>
           <span key={tag} className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{tag}</span>
         ))}
       </div>
-      <p className="font-normal text-gray-700 dark:text-gray-400">{`${description.split(" ").slice(0, 23).join(" ")}${description.split(" ").length > 23 ? "..." : ""}`}</p>
+      <div className="font-normal text-gray-700 dark:text-gray-400">
+        <ReactMarkdown>
+          {`${description.split(" ").slice(0, 23).join(" ")}${description.split(" ").length > 23 ? "..." : ""}`}
+        </ReactMarkdown></div>
     </Link>
   )
 }
