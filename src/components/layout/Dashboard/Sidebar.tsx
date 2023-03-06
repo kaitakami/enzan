@@ -98,7 +98,7 @@ const Sidebar = () => {
                   className="text-3xl font-bold flex flex-col justify-between h-screen py-5"
                 >
                   <div>
-                    <Link href="/" className="flex gap-2 pt-4 pb-3">
+                    <Link href="/dashboard" className="flex gap-2 pt-4 pb-3">
                       <h2 className="text-3xl font-bold bg-gradient-to-b from-slate-900 via-slate-800 to-slate-800 bg-clip-text text-transparent dark:text-slate-100">Enzan</h2>
                       <svg className='h-7 w-7 my-auto' viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="160" height="160" rx="6" fill="#1E293B" />
