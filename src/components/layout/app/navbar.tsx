@@ -58,7 +58,7 @@ const Navbar = () => {
               size={"sm"}
               variant={"outline"}
               className="text-slate-700 dark:text-slate-400 umami--click--sign-in-navbar"
-              onClick={() => { signIn("github").catch(() => toast({ variant: 'destructive', title: "Error iniciando sesión" })) }}
+              onClick={() => { signIn("github").then(() => toast({ variant: 'default', title: 'Iniciando sesión..' })).catch(() => toast({ variant: 'destructive', title: "Error iniciando sesión" })) }}
             >
               <span>Inicia sesión</span>
             </Button> : (
