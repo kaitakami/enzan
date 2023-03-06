@@ -17,14 +17,11 @@ export interface UserWithProjectsAndAdmissions extends User {
 
 const UserPage: NextPage<{ userInfo: UserWithProjectsAndAdmissions, userQueryId: string }> = ({ userInfo, userQueryId }) => {
   const session = useSession()
-
-  console.log(userInfo)
-
   if (session.data?.user.id === userQueryId[0]) {
     return (
       <>
         <DashboardLayout>
-          <div className="mx-auto pt-20">
+          <div className="mx-auto pt-20 w-full">
             <Profile user={userInfo} />
           </div>
         </DashboardLayout>
@@ -33,7 +30,7 @@ const UserPage: NextPage<{ userInfo: UserWithProjectsAndAdmissions, userQueryId:
   } else {
     return (
       <Layout>
-        <div className="pt-16 flex justify-center">
+        <div className="pt-16 w-full mx-auto">
           <Profile user={userInfo} />
         </div>
       </Layout>
@@ -48,7 +45,7 @@ import { prisma } from "@/server/db";
 
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const userInfo = await prisma.user.findUniqueOrThrow({
+  const userInfo = await prisma.user.findUnique({
     where: {
       id: String(query.userId)
     },
@@ -69,6 +66,16 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       id: true,
     },
   })
+
+
+  if (!userInfo) {
+    return {
+      redirect: {
+        destination: '/404',
+        permanent: false
+      }
+    }
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const serializedUserInfo: UserWithProjectsAndAdmissions = JSON.parse(JSON.stringify(userInfo))
