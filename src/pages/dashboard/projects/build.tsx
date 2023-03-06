@@ -18,15 +18,17 @@ export interface FormState {
   finished: boolean,
   duration: number,
   description: string,
-  tags: string[]
+  tags: string[],
+  languages: string[]
 }
 
 
 const Build = () => {
-  const [form, setForm] = useState<FormState>({ name: '', slug: '', public: true, duration: 7, description: "", finished: false, tags: [] })
+  const [form, setForm] = useState<FormState>({ name: '', slug: '', public: true, duration: 7, description: "", finished: false, tags: [], languages: [] })
   const [tagInput, setTagInput] = useState<string>('')
   const { toast } = useToast()
   const router = useRouter()
+  const { data: languages } = api.language["get-all"].useQuery()
   const createProject = api.project["create"].useMutation()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -60,6 +62,17 @@ const Build = () => {
     if (tagInput.length > 0 && !form.tags.includes(tagInput)) {
       setForm((prevForm) => ({ ...prevForm, tags: [...prevForm.tags, tagInput] }))
       setTagInput('')
+    }
+  }
+
+  const handleLanguageSelect = (name: string) => {
+    if (form.languages.includes(name)) {
+      setForm((prevForm) => ({ ...prevForm, languages: prevForm.languages.filter((lang) => lang !== name) }))
+    } else {
+      setForm((prevForm) => ({
+        ...prevForm,
+        languages: [...prevForm.languages, name]
+      }))
     }
   }
 
@@ -111,7 +124,7 @@ const Build = () => {
                   type="number"
                   id="duration"
                   name="duration"
-                  placeholder="Escribe el número de dias. ex) 1 semana = 7" onChange={(e) => handleInputChange(e)}
+                  placeholder="Escribe el número de dias. ex) 1 semana = 7" onChange={handleInputChange}
                   min={1} max={365} />
               </div>
             </div>
@@ -134,6 +147,18 @@ const Build = () => {
                 ))}
               </div>
             </div>
+            {/*  */}
+            <div className="grid w-full items-center gap-1.5 mx-auto">
+              <Label htmlFor='tag'>Lenguajes</Label>
+              <div className='flex flex-wrap gap-2 py-2'>
+                {languages ? languages.map(({ name }) => (
+                  <span onClick={() => handleLanguageSelect(name)} key={name} className={`${form.languages.includes(name) ? "dark:bg-blue-900 dark:text-blue-300 text-blue-800 bg-blue-100" : "dark:bg-gray-900 dark:text-gray-300 text-gray-800 bg-gray-100"} text-xs font-medium py-2 px-3 rounded cursor-default select-none hover:dark:bg-blue-900 hover:bg-blue-100 transition-colors`}>
+                    {name}
+                  </span>
+                )) : "Cargando..."}
+              </div>
+            </div>
+            {/*  */}
             <MdxEditor state={form.description} handleState={handleInputChange} />
             <div className='flex flex-wrap sm:space-x-4 space-y-3 sm:space-y-0 flex-col sm:flex-row'>
               <div className="flex items-center space-x-2">
