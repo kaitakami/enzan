@@ -1,10 +1,11 @@
 import { useSession } from "next-auth/react"
+import type { GetServerSideProps, NextPage } from 'next';
+import type { Project, User, Admission, Language, Update } from "@prisma/client";
 import DashboardLayout from '@/components/layout/Dashboard/Layout';
 import Layout from "@/components/layout/app/Layout";
-import type { GetServerSideProps, NextPage } from 'next';
-import type { Project, User, Admission, Language } from "@prisma/client";
+import { Separator } from "@/components/ui/separator";
 import Profile from "@/components/layout/Dashboard/User/Profile";
-
+import EditProfile from "@/components/layout/Dashboard/User/EditProfile";
 
 export interface ProjectWithLanguage extends Project {
   languages: Language[]
@@ -12,7 +13,11 @@ export interface ProjectWithLanguage extends Project {
 
 export interface UserWithProjectsAndAdmissions extends User {
   projects: ProjectWithLanguage[],
-  admissions: Admission[]
+  admissions: Admission[],
+  updates: Update[],
+  _count: {
+    updates: number
+  }
 }
 
 const UserPage: NextPage<{ userInfo: UserWithProjectsAndAdmissions, userQueryId: string }> = ({ userInfo, userQueryId }) => {
@@ -21,8 +26,10 @@ const UserPage: NextPage<{ userInfo: UserWithProjectsAndAdmissions, userQueryId:
     return (
       <>
         <DashboardLayout>
-          <div className="mx-auto pt-20 w-full">
+          <div className="mx-auto p-3 space-y-6 pt-20 w-full max-w-6xl">
             <Profile user={userInfo} />
+            <Separator orientation="horizontal" />
+            <EditProfile />
           </div>
         </DashboardLayout>
       </>
@@ -57,13 +64,32 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         orderBy: {
           createdAt: "desc"
         }
-
+      },
+      _count: {
+        select: {
+          updates: true
+        }
       },
       admissions: true,
       name: true,
       points: true,
       image: true,
       id: true,
+      updates: {
+        orderBy: {
+          createdAt: "desc"
+        },
+        select: {
+          project: {
+            select: {
+              name: true,
+              slug: true,
+            }
+          },
+          title: true,
+          createdAt: true,
+        }
+      }
     },
   })
 
