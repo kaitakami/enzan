@@ -105,6 +105,9 @@ export const projectRouter = createTRPCRouter({
               },
             },
           },
+          points: {
+            increment: 10,
+          },
         };
 
         await ctx.prisma.user.update({
