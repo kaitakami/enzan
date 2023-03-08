@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useToast } from '@/hooks/use-toast'
@@ -12,6 +13,17 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
   const { toast } = useToast()
   const session = useSession()
   const router = useRouter()
+
+  useEffect(() => {
+    async function redirect() {
+      await router.push('/')
+    }
+
+    if (session.status === 'unauthenticated') {
+      redirect().finally(() => toast({ variant: 'destructive', title: 'Inicia sesión primero', description: 'Tienes que tener una cuenta para acceder esta página' }))
+    }
+  }, [router, session, toast])
+
   if (session.status === 'authenticated') {
     return (
       <>
@@ -21,9 +33,8 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
           {children}
         </div>
       </>)
-  } else if (session.status === 'unauthenticated') {
-    router.push('/').catch(err => console.log(''))
   }
+
   return (
     <>
       <HeadLayout />
@@ -37,6 +48,7 @@ const Layout: React.FC<{ children: JSX.Element, title?: string, description?: st
           <path d="M93.1463 38.8093C93.1463 37.8612 93.8501 37.1573 94.7983 37.1573H102.67C103.618 37.1573 104.322 37.8612 104.322 38.8093V56.0893C104.322 57.0375 103.618 57.7413 102.67 57.7413H94.8992C94.2088 57.7413 93.7371 57.4298 93.4614 57.0134C93.2076 56.63 93.1381 56.1896 93.1463 55.89V38.8093Z" fill="#059669" />
           <path d="M111.482 38.8093C111.482 37.8612 112.186 37.1573 113.134 37.1573H121.006C121.954 37.1573 122.658 37.8612 122.658 38.8093V55.8973C122.658 56.8455 121.954 57.5494 121.006 57.5494H113.134C112.186 57.5494 111.482 56.8455 111.482 55.8973V38.8093Z" fill="#059669" />
         </svg>
+
       </div>
     </>
   )
