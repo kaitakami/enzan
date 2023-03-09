@@ -65,7 +65,7 @@ const Navbar = () => {
               <Link href={`/dashboard/user/${session.data?.user.id || ""}`}>
                 <Avatar>
                   {session.data?.user.image && <AvatarImage src={session.data?.user.image} />}
-                  <AvatarFallback className="uppercase">{session.data?.user.name?.slice(0, 2)}</AvatarFallback>
+                  <AvatarFallback className="uppercase">{session.data?.user.name?.slice(0, 2).toUpperCase()}</AvatarFallback>
                 </Avatar>
               </Link>
             )}
