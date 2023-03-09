@@ -95,7 +95,7 @@ const Sidebar = () => {
               >
                 <motion.div
                   variants={itemVariants}
-                  className="text-3xl font-bold flex flex-col justify-between h-screen py-5"
+                  className=" px-4 flex flex-col justify-between h-screen py-5"
                 >
                   <div>
                     <Link href="/dashboard" className="flex gap-2 pt-4 pb-3">
@@ -158,6 +158,14 @@ const Sidebar = () => {
                         </Link>
                       </li>
                     </ul>
+                    <div className="bg-primary-100 dark:bg-blue-900/25 rounded p-3 pt-5 my-5 space-y-4">
+                      <span className="bg-blue-300 text-blue-800 text-base font-medium px-2 py-1 p-8 rounded dark:bg-blue-900 dark:text-blue-300">Beta</span>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">
+                        Estás usando la versión beta de Enzan.
+                        Si encuentras algún error o una posible mejora puedes contactarme{" "}
+                        <Link className="underline" href="https://linkpop.com/enzan" target="_blank">haciendo click!</Link>
+                      </p>
+                    </div>
                   </div>
                   <div className="flex justify-center">
                     <ThemeChanger />
