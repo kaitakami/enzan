@@ -35,19 +35,19 @@ const Profile: React.FC<{ user: UserWithProjectsAndAdmissions }> = ({ user }) =>
           {user.description}
         </p>
         <div className="flex flex-wrap md:flex-nowrap mx-auto gap-5">
-          <div className="flex flex-col justify-center text-center px-14 py-10 space-y-2 dark:bg-slate-900 bg-slate-200 rounded-md  shadow-xl max-w-xs w-full mx-auto">
+          <div className="flex flex-col justify-center text-center md:px-14 py-10 space-y-2 dark:bg-slate-900 bg-slate-200 rounded-md  shadow-xl sm:max-w-xs w-full mx-auto">
             <h3 className="text-xl font-semibold">
               Proyectos
             </h3>
             <span className="text-2xl font-extrabold">{user.projects.length}</span>
           </div>
-          <div className="flex flex-col justify-center text-center px-14 py-10 space-y-2 dark:bg-slate-900 bg-slate-200 rounded-md shadow-xl max-w-xs w-full mx-auto">
+          <div className="flex flex-col justify-center text-center md:px-14 py-10 space-y-2 dark:bg-slate-900 bg-slate-200 rounded-md shadow-xl sm:max-w-xs w-full mx-auto">
             <h3 className="text-xl font-semibold whitespace-nowrap">
               Puntos 🎉
             </h3>
             <span className="text-2xl font-extrabold">{user.points}</span>
           </div>
-          <div className="flex flex-col justify-center text-center px-14 py-10 space-y-2 dark:bg-slate-900 bg-slate-200 rounded-md shadow-xl max-w-xs w-full mx-auto">
+          <div className="flex flex-col justify-center text-center md:px-14 py-10 space-y-2 dark:bg-slate-900 bg-slate-200 rounded-md shadow-xl sm:max-w-xs w-full mx-auto">
             <h3 className="text-xl font-semibold">
               Updates
             </h3>
