@@ -8,17 +8,21 @@ export const projectRouter = createTRPCRouter({
   ["get"]: publicProcedure
     .input(
       z.object({
-        id: z.string(),
+        slug: z.string(),
       })
     )
     .query(async ({ ctx, input }) => {
       const project = ctx.prisma.project
         .findUnique({
           where: {
-            id: input.id,
+            slug: input.slug,
           },
           include: {
             languages: true,
+            admissions: true,
+            members: true,
+            leader: true,
+            updates: true,
           },
         })
         .catch((err) => console.log(err));
