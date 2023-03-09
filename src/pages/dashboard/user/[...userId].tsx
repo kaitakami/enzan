@@ -75,6 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       points: true,
       image: true,
       id: true,
+      description: true,
       updates: {
         orderBy: {
           createdAt: "desc"
