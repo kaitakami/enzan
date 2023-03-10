@@ -1,26 +1,30 @@
+import { useToast } from "@/hooks/use-toast";
 import { useSession } from "next-auth/react"
+import { signOut } from "next-auth/react";
 import type { GetServerSideProps, NextPage } from 'next';
-import type { Project, User, Admission, Language, Update } from "@prisma/client";
+import type { Project, User, Language, Update, Admission } from "@prisma/client";
 import DashboardLayout from '@/components/layout/Dashboard/Layout';
 import Layout from "@/components/layout/app/Layout";
 import { Separator } from "@/components/ui/separator";
 import Profile from "@/components/layout/Dashboard/User/Profile";
 import EditProfile from "@/components/layout/Dashboard/User/EditProfile";
+import { Button } from "@/components/ui/button";
 
 export interface ProjectWithLanguage extends Project {
   languages: Language[]
 }
 
-export interface UserWithProjectsAndAdmissions extends User {
+export interface UserWithProjects extends User {
   projects: ProjectWithLanguage[],
-  admissions: Admission[],
   updates: Update[],
   _count: {
     updates: number
   }
+  admissions: Admission[]
 }
 
-const UserPage: NextPage<{ userInfo: UserWithProjectsAndAdmissions, userQueryId: string }> = ({ userInfo, userQueryId }) => {
+const UserPage: NextPage<{ userInfo: UserWithProjects, userQueryId: string }> = ({ userInfo, userQueryId }) => {
+  const { toast } = useToast()
   const session = useSession()
   if (session.data?.user.id === userQueryId[0]) {
     return (
@@ -29,7 +33,15 @@ const UserPage: NextPage<{ userInfo: UserWithProjectsAndAdmissions, userQueryId:
           <div className="mx-auto p-3 space-y-6 pt-20 w-full max-w-6xl">
             <Profile user={userInfo} />
             <Separator orientation="horizontal" />
-            <EditProfile />
+            <div className="flex gap-3">
+              <EditProfile />
+              <Button variant={'destructive'} onClick={() => {
+                signOut().catch(() => toast({
+                  variant: "destructive",
+                  title: "Error cerrando sesión",
+                }))
+              }}>Cerrar sesión</Button>
+            </div>
           </div>
         </DashboardLayout>
       </>
@@ -105,7 +117,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const serializedUserInfo: UserWithProjectsAndAdmissions = JSON.parse(JSON.stringify(userInfo))
+  const serializedUserInfo: UserWithProjects = JSON.parse(JSON.stringify(userInfo))
 
   return {
     props: {
