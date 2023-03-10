@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { ChevronsUpDown } from "lucide-react"
-import type { UserWithProjectsAndAdmissions } from "@/pages/dashboard/user/[...userId]"
+import type { UserWithProjects } from "@/pages/dashboard/user/[...userId]"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import Project from "@/components/ProjectCard"
 import { Button } from "@/components/ui/button"
 
-const Profile: React.FC<{ user: UserWithProjectsAndAdmissions }> = ({ user }) => {
+const Profile: React.FC<{ user: UserWithProjects }> = ({ user }) => {
   const [isCollapsibleOpen, setIsCollapsibleOpen] = useState(false)
   const [showMore, setShowMore] = useState({
     projects: 3,
@@ -68,11 +68,6 @@ const Profile: React.FC<{ user: UserWithProjectsAndAdmissions }> = ({ user }) =>
               <Button variant="outline" className="block mx-auto" onClick={() => handleShowMore('projects')}>Mostrar más</Button>
             </div>)
           }
-          {user.admissions.map(admission => (
-            <div key={admission.createdAt.toString()}>
-              {admission.projectId}
-            </div>
-          ))}
         </div>
         <div>
           <Collapsible
