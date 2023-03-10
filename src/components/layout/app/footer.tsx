@@ -30,10 +30,10 @@ const Footer = () => {
             <Link href={siteConfig.links.blog} className="mr-4 hover:underline md:mr-6">Blog</Link>
           </li>
           <li>
-            <a href="#FAQ" className="mr-4 hover:underline md:mr-6">FAQs</a>
+            <Link href="/#FAQ" className="mr-4 hover:underline md:mr-6">FAQs</Link>
           </li>
           <li>
-            <a href={siteConfig.links.contact} className="mr-4 hover:underline md:mr-6">Contacto</a>
+            <Link href={siteConfig.links.contact} className="mr-4 hover:underline md:mr-6">Contacto</Link>
           </li>
         </ul>
         <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 Enzan. Todos los derechos reservados.</span>
