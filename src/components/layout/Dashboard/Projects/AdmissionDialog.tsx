@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -18,13 +19,19 @@ const AdmissionDialog: React.FC<{ projectId: string }> = ({ projectId }) => {
   const [message, setMessage] = useState("")
   const admissionMutation = api.admission["submit"].useMutation()
   const { toast } = useToast()
+  const router = useRouter()
   const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value)
   }
 
   const handleSubmit = () => {
     if (message) {
+      if (message.length > 600) {
+        toast({ variant: 'destructive', title: "El mensaje es muy largo", description: "El mensaje no puede superar los 600 caracteres" })
+        return
+      }
       admissionMutation.mutate({ message, projectId })
+      router.reload()
     } else {
       toast({ variant: 'destructive', title: "Debes escribir un mensaje" })
     }
@@ -39,7 +46,7 @@ const AdmissionDialog: React.FC<{ projectId: string }> = ({ projectId }) => {
           <DialogHeader>
             <DialogTitle>Haz una admisión</DialogTitle>
             <DialogDescription>
-              Envia una admisión para participar en este proyecto. Escribe en que puedes aportar y tus motivaciones.
+              Envía una admisión para participar en este proyecto. Escribe en que puedes aportar y tus motivaciones.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
