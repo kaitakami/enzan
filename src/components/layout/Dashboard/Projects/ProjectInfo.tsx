@@ -7,9 +7,16 @@ import { convertDuration } from "@/utils/cleanDuration";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import AdmissionDialog from "./AdmissionDialog";
+import AdmissionList from "./AdmissionList";
+import { buttonVariants } from "@/components/ui/button";
+import { Github } from "lucide-react";
+
+interface AdmissionWithUser extends Admission {
+  user: User
+}
 
 interface ProjectWithIncludes extends Project {
-  admissions: Admission[]
+  admissions: AdmissionWithUser[]
   languages: Language[]
   updates: Update[]
   members: User[]
@@ -52,11 +59,19 @@ const ProjectInfo: React.FC<{ project: ProjectWithIncludes, authenticated: boole
           </HoverCard>
         ))}
       </div>
-      {/* ADDDD */}
-      {isUserPartOfProject && authenticated && (
+      {project.repositoryUrl && (
+        <Link href={project.repositoryUrl} className={buttonVariants({className: "mt-5"})}>
+          <Github />
+          URL repositorio
+        </Link>
+      )}
+      {!isUserPartOfProject && authenticated && (
         <AdmissionDialog projectId={project.id} />
       )
       }
+      {isUserPartOfProject && (
+        <AdmissionList admissions={project.admissions} />
+      )}
       <Separator orientation="horizontal" className="mt-5" />
       <div className="grid sm:grid-cols-3 pt-12">
         <div className="sm:col-span-2 md:prose-base prose-sm">
