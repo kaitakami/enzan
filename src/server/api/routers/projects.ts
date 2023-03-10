@@ -17,12 +17,29 @@ export const projectRouter = createTRPCRouter({
           where: {
             slug: input.slug,
           },
-          include: {
+          select: {
+            admissions: {
+              include: {
+                user: true,
+              },
+            },
             languages: true,
-            admissions: true,
             members: true,
             leader: true,
             updates: true,
+            name: true,
+            slug: true,
+            description: true,
+            duration: true,
+            public: true,
+            tags: true,
+            createdAt: true,
+            finished: true,
+            upvotes: true,
+            id: true,
+            leaderId: true,
+            repositoryUrl: true,
+            updatedAt: true,
           },
         })
         .catch((err) => console.log(err));
