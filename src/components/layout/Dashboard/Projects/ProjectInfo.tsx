@@ -1,5 +1,5 @@
 
-import type { Project, Admission, Language, Update, User } from "@prisma/client"
+import type { Project, Admission, Language, User } from "@prisma/client"
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
@@ -10,6 +10,9 @@ import AdmissionDialog from "./AdmissionDialog";
 import AdmissionList from "./AdmissionList";
 import { buttonVariants } from "@/components/ui/button";
 import { Github } from "lucide-react";
+import UpdateDialog from "./UpdateDialog";
+import UpdateCollapsible from "@/components/dashboard/UpdateCollapsible";
+import { type Update } from "@/components/dashboard/UpdateCollapsible";
 
 interface AdmissionWithUser extends Admission {
   user: User
@@ -60,10 +63,13 @@ const ProjectInfo: React.FC<{ project: ProjectWithIncludes, authenticated: boole
         ))}
       </div>
       {project.repositoryUrl && (
-        <Link href={project.repositoryUrl} className={buttonVariants({className: "mt-5"})}>
+        <Link href={project.repositoryUrl} className={buttonVariants({ className: "mt-5" })}>
           <Github />
           URL repositorio
         </Link>
+      )}
+      {isUserPartOfProject && (
+        <UpdateDialog projectId={project.id} />
       )}
       {!isUserPartOfProject && authenticated && (
         <AdmissionDialog projectId={project.id} />
@@ -71,6 +77,9 @@ const ProjectInfo: React.FC<{ project: ProjectWithIncludes, authenticated: boole
       }
       {isUserPartOfProject && (
         <AdmissionList admissions={project.admissions} />
+      )}
+      {project.updates.length > 0 && (
+        <UpdateCollapsible updates={project.updates} showContent={true} />
       )}
       <Separator orientation="horizontal" className="mt-5" />
       <div className="grid sm:grid-cols-3 pt-12">
