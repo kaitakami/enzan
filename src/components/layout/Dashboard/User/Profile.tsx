@@ -1,13 +1,11 @@
 import { useState } from "react"
-import { ChevronsUpDown } from "lucide-react"
 import type { UserWithProjects } from "@/pages/dashboard/user/[...userId]"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import Project from "@/components/ProjectCard"
 import { Button } from "@/components/ui/button"
+import UpdateCollapsible from "@/components/dashboard/UpdateCollapsible"
 
 const Profile: React.FC<{ user: UserWithProjects }> = ({ user }) => {
-  const [isCollapsibleOpen, setIsCollapsibleOpen] = useState(false)
   const [showMore, setShowMore] = useState({
     projects: 3,
     admissions: 3,
@@ -20,7 +18,6 @@ const Profile: React.FC<{ user: UserWithProjects }> = ({ user }) => {
       })
     }
   }
-
   return (
     <>
       <section className="max-w-6xl space-y-8 rounded mx-auto">
@@ -69,42 +66,7 @@ const Profile: React.FC<{ user: UserWithProjects }> = ({ user }) => {
             </div>)
           }
         </div>
-        <div>
-          <Collapsible
-            open={isCollapsibleOpen}
-            onOpenChange={setIsCollapsibleOpen}
-            className="space-y-2"
-          >
-            <div className="flex items-center justify-between">
-              <h2 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">Updates</h2>
-              <CollapsibleTrigger asChild>
-                <Button variant="ghost" size="sm" className="w-9 p-0">
-                  <ChevronsUpDown className="h-4 w-4" />
-                  <span className="sr-only">Abrir</span>
-                </Button>
-              </CollapsibleTrigger>
-            </div>
-            {user.updates.length === 0 ?
-              <div className="rounded-md border border-slate-200 px-4 py-3 font-mono text-sm dark:border-slate-700">
-                No hay updates
-              </div>
-              :
-              <>
-                <div className="rounded-md border border-slate-200 px-4 py-3 font-mono text-sm dark:border-slate-700">
-                  {/* TODO: Show updates and make it safe type */}
-                  First update
-                </div>
-                <CollapsibleContent className="space-y-2">
-                  <div className="rounded-md border border-slate-200 px-4 py-3 font-mono text-sm dark:border-slate-700">
-                    @radix-ui/colors
-                  </div>
-                  <div className="rounded-md border border-slate-200 px-4 py-3 font-mono text-sm dark:border-slate-700">
-                    @stitches/react
-                  </div>
-                </CollapsibleContent>
-              </>}
-          </Collapsible>
-        </div>
+        <UpdateCollapsible updates={user.updates} />
       </section>
     </>
   )
