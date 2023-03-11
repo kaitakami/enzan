@@ -159,7 +159,7 @@ const Build = () => {
               </div>
             </div>
             {/*  */}
-            <MdxEditor state={form.description} handleState={handleInputChange} />
+            <MdxEditor state={form.description} handleState={handleInputChange} name='description' placeholder='Escribe una descripción de tu proyecto en sintaxis MDX o texto plano' />
             <div className='flex flex-wrap sm:space-x-4 space-y-3 sm:space-y-0 flex-col sm:flex-row'>
               <div className="flex items-center space-x-2">
                 <Checkbox id='public' checked={form.public} onCheckedChange={(e) => handleCheckboxChange(e, 'public')} defaultChecked name='public' />
