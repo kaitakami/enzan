@@ -2,13 +2,14 @@ import { useToast } from "@/hooks/use-toast";
 import { useSession } from "next-auth/react"
 import { signOut } from "next-auth/react";
 import type { GetServerSideProps, NextPage } from 'next';
-import type { Project, User, Language, Update, Admission } from "@prisma/client";
+import type { Project, User, Language, Admission } from "@prisma/client";
 import DashboardLayout from '@/components/layout/Dashboard/Layout';
 import Layout from "@/components/layout/app/Layout";
 import { Separator } from "@/components/ui/separator";
 import Profile from "@/components/layout/Dashboard/User/Profile";
 import EditProfile from "@/components/layout/Dashboard/User/EditProfile";
 import { Button } from "@/components/ui/button";
+import { type Update } from "@/components/dashboard/UpdateCollapsible";
 
 export interface ProjectWithLanguage extends Project {
   languages: Language[]
@@ -16,11 +17,11 @@ export interface ProjectWithLanguage extends Project {
 
 export interface UserWithProjects extends User {
   projects: ProjectWithLanguage[],
-  updates: Update[],
   _count: {
     updates: number
   }
   admissions: Admission[]
+  updates: Update[]
 }
 
 const UserPage: NextPage<{ userInfo: UserWithProjects, userQueryId: string }> = ({ userInfo, userQueryId }) => {
@@ -101,6 +102,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
           },
           title: true,
           createdAt: true,
+          content: true,
+          id: true,
         }
       }
     },
