@@ -26,7 +26,23 @@ export const projectRouter = createTRPCRouter({
             languages: true,
             members: true,
             leader: true,
-            updates: true,
+            updates: {
+              orderBy: {
+                createdAt: "desc",
+              },
+              select: {
+                project: {
+                  select: {
+                    name: true,
+                    slug: true,
+                  },
+                },
+                id: true,
+                title: true,
+                createdAt: true,
+                content: true,
+              },
+            },
             name: true,
             slug: true,
             description: true,
