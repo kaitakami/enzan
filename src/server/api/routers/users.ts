@@ -54,7 +54,14 @@ export const userRouter = createTRPCRouter({
               updates: true,
             },
           },
-          admissions: true,
+          admissions: {
+            select: {
+              project: true,
+              content: true,
+              createdAt: true,
+              id: true,
+            }
+          },
           name: true,
           points: true,
           image: true,
