@@ -26,7 +26,7 @@ const AdmissionList: React.FC<{ admissions: AdmissionWithUser[] }> = ({ admissio
   }
 
   return (
-    <div className="my-14">
+    <div className="my-8">
       <h3 className="mt-10 scroll-m-20 border-b border-b-slate-200 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 dark:border-b-slate-700">Admisiones</h3>
       <div className="flex gap-3 flex-wrap pt-3">
         {admissions.length === 0 && (
