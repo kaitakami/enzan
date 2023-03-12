@@ -87,6 +87,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       name: true,
       points: true,
       image: true,
+      githubURL: true,
       id: true,
       description: true,
       updates: {
