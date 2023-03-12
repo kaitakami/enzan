@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 export interface FormState {
   name: string,
   slug: string,
+  repoLink: string
   public: boolean,
   finished: boolean,
   duration: number,
@@ -24,7 +25,7 @@ export interface FormState {
 
 
 const Build = () => {
-  const [form, setForm] = useState<FormState>({ name: '', slug: '', public: true, duration: 7, description: "", finished: false, tags: [], languages: [] })
+  const [form, setForm] = useState<FormState>({ name: '', slug: '', repoLink: '', public: true, duration: 7, description: "", finished: false, tags: [], languages: [] })
   const [tagInput, setTagInput] = useState<string>('')
   const { toast } = useToast()
   const router = useRouter()
@@ -115,6 +116,10 @@ const Build = () => {
             <div className="grid w-full items-center gap-1.5 mx-auto">
               <Label htmlFor='slug'>Slug</Label>
               <Input disabled value={form.slug} type="text" id="slug" name='slug' placeholder="https://enzan.kaitakami.dev/dashboard/projects/..." max={240} required />
+            </div>
+            <div className="grid w-full items-center gap-1.5 mx-auto">
+              <Label htmlFor='repoLink'>URL del repositorio</Label>
+              <Input value={form.repoLink} type="url" id="repoLink" name='repoLink' onChange={handleInputChange} placeholder="https://github.com/kaitakami/enzan" max={800} />
             </div>
             <div className="grid w-full items-center gap-1.5 mx-auto">
               <Label htmlFor='duration'>Duración</Label>
