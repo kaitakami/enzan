@@ -113,6 +113,7 @@ export const projectRouter = createTRPCRouter({
         name: z.string(),
         slug: z.string(),
         description: z.string(),
+        repoLink: z.string(),
         duration: z.number(),
         public: z.boolean(),
         tags: z.array(z.string()),
@@ -133,6 +134,7 @@ export const projectRouter = createTRPCRouter({
               name: input.name,
               slug: input.slug,
               description: input.description,
+              repositoryUrl: input.repoLink,
               duration: input.duration,
               public: input.public,
               tags: input.tags,
@@ -159,5 +161,18 @@ export const projectRouter = createTRPCRouter({
           error: "Intenta cambiando el nombre del proyecto",
         };
       }
+    }),
+  ["delete"]: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.project.delete({
+        where: {
+          id: input.id,
+        },
+      });
     }),
 });

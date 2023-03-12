@@ -9,6 +9,7 @@ export const userRouter = createTRPCRouter({
       z.object({
         name: z.string(),
         description: z.string().max(500),
+        githubURL: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -20,6 +21,10 @@ export const userRouter = createTRPCRouter({
 
       if (input.description) {
         data.description = input.description;
+      }
+
+      if (input.githubURL) {
+        data.githubURL = input.githubURL;
       }
 
       await ctx.prisma.user.update({
@@ -60,7 +65,10 @@ export const userRouter = createTRPCRouter({
               content: true,
               createdAt: true,
               id: true,
-            }
+              updatedAt: true,
+              projectId: true,
+              userId: true,
+            },
           },
           name: true,
           points: true,
