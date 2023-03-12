@@ -16,7 +16,7 @@ const UserProjects = () => {
     if (session.status === "authenticated") {
       return (
         <LayoutDashboard>
-          <div className="mx-auto pt-20 px-3">
+          <div className="mx-auto pt-20 px-3 w-full">
             <ProjectInfo project={project} authenticated={true} sessionId={session.data.user.id} />
           </div>
         </LayoutDashboard>
