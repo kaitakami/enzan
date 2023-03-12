@@ -63,7 +63,7 @@ const ProjectInfo: React.FC<{ project: ProjectWithIncludes, authenticated: boole
         ))}
       </div>
       {project.repositoryUrl && (
-        <Link href={project.repositoryUrl} className={buttonVariants({ className: "mt-5" })}>
+        <Link href={project.repositoryUrl} className={buttonVariants({ className: "mt-5" })} target="_blank">
           <Github />
           URL repositorio
         </Link>
