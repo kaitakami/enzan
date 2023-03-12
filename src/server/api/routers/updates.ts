@@ -21,4 +21,17 @@ export const updateRouter = createTRPCRouter({
         },
       });
     }),
+  ["remove"]: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input: { id } }) => {
+      await ctx.prisma.update.delete({
+        where: {
+          id,
+        },
+      });
+    }),
 });
