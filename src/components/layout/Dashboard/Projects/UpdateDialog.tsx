@@ -47,7 +47,7 @@ const UpdateDialog: React.FC<{ projectId: string }> = ({ projectId }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="mt-5" variant="outline">Hacer un update</Button>
+        <Button className="mt-5 block" variant="outline">Hacer un update</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
