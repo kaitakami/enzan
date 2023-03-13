@@ -82,12 +82,10 @@ const ProjectInfo: React.FC<{ project: ProjectWithIncludes, authenticated: boole
         <UpdateCollapsible updates={project.updates} showContent={true} />
       )}
       <Separator orientation="horizontal" className="mt-5" />
-      <div className="grid sm:grid-cols-3 pt-12">
-        <div className="sm:col-span-2 md:prose-base prose-sm">
-          <ReactMarkdown>
-            {project.description}
-          </ReactMarkdown>
-        </div>
+      <div className="md:prose-base prose-sm pb-5">
+        <ReactMarkdown>
+          {project.description}
+        </ReactMarkdown>
       </div>
     </section>
   )

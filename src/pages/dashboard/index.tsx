@@ -72,7 +72,7 @@ const Dashboard: NextPage = () => {
               <article
                 className="animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-[length:400%_400%] p-0.5 shadow-xl transition [animation-duration:_6s] hover:shadow-sm dark:shadow-gray-700/25"
               >
-                <div className="rounded-[10px] bg-white dark:bg-gray-900 sm:p-6">
+                <div className="rounded-[10px] bg-white dark:bg-gray-900 p-6">
                   <h4 className="mt-0.5 text-lg font-medium text-gray-900 dark:text-white">
                     Aún no has hecho ninguna admisión.
                   </h4>
