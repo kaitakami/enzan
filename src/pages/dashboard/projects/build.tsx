@@ -122,17 +122,18 @@ const Build = () => {
               <Input value={form.repoLink} type="url" id="repoLink" name='repoLink' onChange={handleInputChange} placeholder="https://github.com/kaitakami/enzan" max={800} />
             </div>
             <div className="grid w-full items-center gap-1.5 mx-auto">
-              <Label htmlFor='duration'>Duración</Label>
+              <Label htmlFor='duration'>Duración (número de días)</Label>
               <div>
                 <Input
                   value={form.duration}
                   type="number"
                   id="duration"
                   name="duration"
-                  placeholder="Escribe el número de dias. ex) 1 semana = 7" onChange={handleInputChange}
+                  placeholder="Escribe el número de días. ex) 1 semana = 7" onChange={handleInputChange}
                   min={1} max={365} />
               </div>
             </div>
+
             <div className="grid w-full items-center gap-1.5 mx-auto">
               <Label htmlFor='tag'>Tags</Label>
               <div className='flex gap-4'>
