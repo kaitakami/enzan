@@ -50,7 +50,7 @@ const UserPage: NextPage<{ userInfo: UserWithProjects, userQueryId: string }> = 
   } else {
     return (
       <Layout>
-        <div className="pt-16 w-full mx-auto">
+        <div className="p-3 !pt-16 w-full mx-auto">
           <Profile user={userInfo} />
         </div>
       </Layout>
