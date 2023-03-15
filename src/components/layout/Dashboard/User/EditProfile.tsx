@@ -1,6 +1,5 @@
 "use client"
 import { useState } from "react"
-import { useRouter } from "next/router"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import {
@@ -31,7 +30,7 @@ function validURL(str: string) {
 const EditProfile = () => {
   const [updatedInfo, setUpdatedInfo] = useState({ name: "", description: "", githubURL: "" })
   const { toast } = useToast()
-  const router = useRouter()
+  const ctx = api.useContext()
   const userUpdateMutation = api.user["edit-profile"].useMutation()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -60,8 +59,15 @@ const EditProfile = () => {
         return
       }
 
-      userUpdateMutation.mutate(updatedInfo)
-      router.reload()
+      try {
+        userUpdateMutation.mutate(updatedInfo)
+        ctx.user.get
+          .invalidate()
+          .catch(() => toast({ variant: "destructive", title: "Error", description: "No se pudo actualizar tu perfil" }))
+        toast({ title: "Se han guardado los cambios ✅" })
+      } catch {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo actualizar tu perfil" })
+      }
     }
   }
   return (

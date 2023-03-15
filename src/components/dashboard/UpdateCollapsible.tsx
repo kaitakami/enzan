@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
-import { useRouter } from 'next/router'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import { ChevronsUpDown } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
@@ -22,15 +21,17 @@ export interface Update {
 const UpdateCollapsible: React.FC<{ updates: Update[], showContent?: boolean }> = ({ updates, showContent = false }) => {
   const [isCollapsibleOpen, setIsCollapsibleOpen] = useState(false)
   const { toast } = useToast()
-  const router = useRouter()
   const updateRemove = api.update.remove.useMutation()
+  const ctx = api.useContext()
 
   const handleRemove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: string) => {
     e.preventDefault()
     e.stopPropagation()
     updateRemove.mutate({ id })
-    toast({ title: "Update eliminado ✅" })
-    router.reload()
+    ctx.project.get
+      .invalidate()
+      .catch(() => toast({ variant: 'destructive', title: 'Hubo un error al eliminar el update' }))
+      .finally(() => toast({ title: "Update eliminado ✅" }))
   }
 
   return (

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useToast } from '@/hooks/use-toast';
-import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -19,7 +18,6 @@ const AdmissionDialog: React.FC<{ projectId: string }> = ({ projectId }) => {
   const [message, setMessage] = useState("")
   const admissionMutation = api.admission["submit"].useMutation()
   const { toast } = useToast()
-  const router = useRouter()
   const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value)
   }
@@ -30,8 +28,12 @@ const AdmissionDialog: React.FC<{ projectId: string }> = ({ projectId }) => {
         toast({ variant: 'destructive', title: "El mensaje es muy largo", description: "El mensaje no puede superar los 600 caracteres" })
         return
       }
-      admissionMutation.mutate({ message, projectId })
-      router.reload()
+      try {
+        admissionMutation.mutate({ message, projectId })
+        toast({ title: "Admisión enviada ✅" })
+      } catch {
+        toast({ variant: 'destructive', title: "Error", description: "No se pudo enviar la admisión" })
+      }
     } else {
       toast({ variant: 'destructive', title: "Debes escribir un mensaje" })
     }

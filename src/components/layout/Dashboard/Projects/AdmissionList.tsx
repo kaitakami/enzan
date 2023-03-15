@@ -13,16 +13,22 @@ const AdmissionList: React.FC<{ admissions: AdmissionWithUser[] }> = ({ admissio
   const { toast } = useToast()
   const rejectAdmission = api.admission["reject"].useMutation()
   const acceptAdmission = api.admission["accept"].useMutation()
+  const ctx = api.useContext()
 
   const handleAccept = (admission: AdmissionWithUser) => {
     acceptAdmission.mutate({ admissionId: admission.id, userId: admission.user.id, projectId: admission.projectId })
-    toast({ title: "La admisión fue aceptada exitosamente! ✅" })
+    ctx.project.get.invalidate()
+      .catch(() => toast({ variant: 'destructive', title: "Error", description: "No se pudo aceptar la admisión" }))
+      .finally(() => toast({ title: "La admisión fue aceptada exitosamente! ✅" })
+      )
   }
 
   const handleReject = (admission: AdmissionWithUser) => {
     rejectAdmission.mutate({ admissionId: admission.id })
-    rejectAdmission.reset()
-    toast({ title: "La admisión fue eliminada exitosamente ✅" })
+    ctx.project.get.invalidate()
+      .catch(() => toast({ variant: 'destructive', title: "Error", description: "No se pudo aceptar la admisión" }))
+      .finally(() => toast({ title: "La admisión fue eliminada exitosamente ✅" }))
+
   }
 
   return (

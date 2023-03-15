@@ -16,12 +16,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { api } from '@/utils/api';
-import { useRouter } from 'next/router';
+
 
 const UpdateDialog: React.FC<{ projectId: string }> = ({ projectId }) => {
   const [formState, setFormState] = useState({ title: "", content: "" })
   const { toast } = useToast()
-  const router = useRouter()
+  const ctx = api.useContext()
   const updateMutation = api.update.create.useMutation()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,8 +39,12 @@ const UpdateDialog: React.FC<{ projectId: string }> = ({ projectId }) => {
       toast({ variant: "destructive", title: "El título es demasiado largo" })
     } else {
       updateMutation.mutate({ ...formState, projectId })
-      toast({ title: "Update creado" })
-      router.reload()
+      ctx.project.get
+        .invalidate()
+        .catch(() => toast({ variant: "destructive", title: "Error al crear el update" }))
+        .finally(() => {
+          toast({ title: "Update creado ✅" })
+        })
     }
   }
 
