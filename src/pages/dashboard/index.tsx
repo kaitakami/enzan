@@ -32,7 +32,7 @@ const Dashboard: NextPage = () => {
             className="inline-block rounded bg-primary-600 p-2 text-white dark:bg-primary-700">
             <GraduationCap size={25} />
           </span>
-          <Link href="https://discord.gg/FysAu4AbXH">
+          <Link href="https://dub.enzan.dev/comunidad">
             <h3 className="mt-0.5 text-lg font-medium text-gray-900 dark:text-white">
               Únete a nuestra comunidad en Discord
             </h3>
@@ -45,7 +45,7 @@ const Dashboard: NextPage = () => {
           </p>
 
           <Link
-            href="https://discord.gg/FysAu4AbXH"
+            href="https://dub.enzan.dev/comunidad"
             className="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary-600"
             target="_blank"
           >Ir a la comunidad
