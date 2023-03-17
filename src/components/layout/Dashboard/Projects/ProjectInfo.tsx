@@ -31,54 +31,56 @@ const ProjectInfo: React.FC<{ project: Project, authenticated: boolean, sessionI
       </div>
       <div className="flex gap-2 flex-wrap">
         {project?.members.map((member) => (
-          <HoverCard key={member.name}>
-            <HoverCardTrigger>
-              <Avatar className="w-14 h-14">
-                <AvatarImage src={member.image || ""} alt={`${member.name || ""} github image`} />
-                <AvatarFallback>{member.name?.slice(0, 2).toUpperCase()}</AvatarFallback>
-              </Avatar>
-            </HoverCardTrigger>
-            <HoverCardContent>
-              <Link href={`/dashboard/user/${member.id}`} className="space-y-2">
+          <Link href={`/dashboard/user/${member.id}`} key={member.name}>
+            <HoverCard>
+              <HoverCardTrigger>
+                <Avatar className="w-14 h-14">
+                  <AvatarImage src={member.image || ""} alt={`${member.name || ""} github image`} />
+                  <AvatarFallback>{member.name?.slice(0, 2).toUpperCase()}</AvatarFallback>
+                </Avatar>
+              </HoverCardTrigger>
+              <HoverCardContent>
                 <h4 className="text-sm font-semibold">{member.name}</h4>
                 <p className="text-sm">
                   {member.description.slice(0, 63).trim()}{member.description.length > 63 && "..."}
                 </p>
-              </Link>
-            </HoverCardContent>
-          </HoverCard>
+              </HoverCardContent>
+            </HoverCard>
+          </Link>
         ))}
       </div>
-      {project ? (
-        <>
-          {project?.repositoryUrl && (
-            <Link href={project.repositoryUrl} className={buttonVariants({ className: "mt-5" })} target="_blank">
-              <Github />
-              URL repositorio
-            </Link>
-          )}
-          {isUserPartOfProject && (
-            <UpdateDialog projectId={project.id} />
-          )}
-          {!isUserPartOfProject && authenticated && (
-            <AdmissionDialog projectId={project.id} />
-          )
-          }
-          {isUserPartOfProject && (
-            <AdmissionList admissions={project.admissions} />
-          )}
-          {project.updates.length > 0 && (
-            <UpdateCollapsible updates={project.updates} showContent={true} />
-          )}
-          <Separator orientation="horizontal" className="mt-5" />
-          <div className="md:prose-base prose-sm py-5">
-            <ReactMarkdown>
-              {project.description}
-            </ReactMarkdown>
-          </div>
-        </>
-      ) : ""}
-    </section>
+      {
+        project ? (
+          <>
+            {project?.repositoryUrl && (
+              <Link href={project.repositoryUrl} className={buttonVariants({ className: "mt-5" })} target="_blank">
+                <Github />
+                URL repositorio
+              </Link>
+            )}
+            {isUserPartOfProject && (
+              <UpdateDialog projectId={project.id} />
+            )}
+            {!isUserPartOfProject && authenticated && (
+              <AdmissionDialog projectId={project.id} />
+            )
+            }
+            {isUserPartOfProject && (
+              <AdmissionList admissions={project.admissions} />
+            )}
+            {project.updates.length > 0 && (
+              <UpdateCollapsible updates={project.updates} showContent={true} />
+            )}
+            <Separator orientation="horizontal" className="mt-5" />
+            <div className="md:prose-base prose-sm py-5">
+              <ReactMarkdown>
+                {project.description}
+              </ReactMarkdown>
+            </div>
+          </>
+        ) : ""
+      }
+    </section >
   )
 }
 
