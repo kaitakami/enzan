@@ -47,6 +47,22 @@ const HeadLayout = (
       </Head>
       {/* Umami */}
       <Script async defer data-website-id="3b1eed1e-0265-4b9b-9594-db63aa78cd5d" src="https://umami.kaitakami.dev/umami.js" />
+      {/* Google Analytics */}
+      <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-X7TFBDXD4W" />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', "G-X7TFBDXD4W", {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
     </>
   )
 }
